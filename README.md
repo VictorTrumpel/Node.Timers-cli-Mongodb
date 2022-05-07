@@ -23,5 +23,20 @@ Node + Mongodb + cli client
 ## Авторизация
     cd client node index.js login
     
-## Авторизация
-    cd client node index.js login
+## Выйти
+    cd client node index.js logout
+
+## Запустить таймер
+    cd client node index.js start <timer name>
+
+## Остановить таймер
+    cs client node index.js stop <timerId>
+    
+## Вывести все активные таймеры
+    cs client node index.js status
+    
+## Вывести конкретный таймер
+    cs client node index.js status <timerId>
+    
+## Вывести неактивные таймеры
+    cs client node index.js status old
