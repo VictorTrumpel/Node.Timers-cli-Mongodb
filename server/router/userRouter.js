@@ -7,7 +7,7 @@ const userController = new UserController();
 const userRouter = Router();
 
 userRouter.post("/login", userController.logIn.bind(userController));
-userRouter.post("/signup", userController.singUp.bind(userController));
+userRouter.post("/signup", userController.signup.bind(userController));
 userRouter.get("/logout", userController.logOut.bind(userController));
 
 module.exports.userRouter = userRouter;

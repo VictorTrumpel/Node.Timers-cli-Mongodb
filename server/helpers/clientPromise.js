@@ -1,6 +1,6 @@
 const { MongoClient } = require("mongodb");
 
-const clientPromise = MongoClient.connect(process.env.DB_URI, {
+const clientPromise = MongoClient.connect(process.env.DB_URL, {
   useUnifiedTopology: true,
   maxPoolSize: 10,
 });

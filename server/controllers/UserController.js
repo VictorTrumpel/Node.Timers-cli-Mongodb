@@ -17,7 +17,7 @@ class UserController {
       if (!isPassword) throw new Error("Auth error");
 
       const sessionId = await createSession(req.sessionsCollection, user._id);
-      return res.json({ sessionId });
+      return res.json({ sessionId, message: "Logged in successfully!" });
     });
   }
 
@@ -31,7 +31,7 @@ class UserController {
     });
   }
 
-  async singUp(req, res) {
+  async signup(req, res) {
     await tryCatchCRUD(res, async () => {
       const { username, password } = _.pick(req.body, "username", "password");
       const isUserExists = await req.usersCollection.findOne({ username });
@@ -44,13 +44,25 @@ class UserController {
           : !username
           ? "Username is missing"
           : "Unexpected registration error";
+
         throw new Error(errMessage);
       }
 
       const hashPassword = await bcrypt.hash(password, 5);
 
-      await req.usersCollection.insertOne({ username, password: hashPassword });
-      return res.status(200).json({ message: "Successful registration" });
+      const user = await req.usersCollection.insertOne({
+        username,
+        password: hashPassword,
+      });
+
+      const sessionId = await createSession(
+        req.sessionsCollection,
+        user.insertedId
+      );
+
+      return res
+        .status(200)
+        .json({ sessionId, message: "Successful registration" });
     });
   }
 }

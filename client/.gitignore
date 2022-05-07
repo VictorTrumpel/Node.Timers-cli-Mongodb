@@ -24,8 +24,7 @@ coverage
 
 # nyc test coverage
 .nyc_output
-../.idea/
-.idea
+
 # Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
@@ -103,5 +102,3 @@ dist
 
 # TernJS port file
 .tern-port
-
-*.sample.js

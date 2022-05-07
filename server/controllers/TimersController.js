@@ -7,6 +7,9 @@ class TimersController {
   async getTimerList(req, res) {
     await tryCatchCRUD(res, async () => {
       const isActive = booleanFromString(req.query.isActive);
+
+      if (!req.user) throw new Error("Not authorized!");
+
       const bdQuery = _.omitBy(
         { ...req.query, isActive, userId: req.user._id },
         _.isUndefined
@@ -27,14 +30,22 @@ class TimersController {
   async getTimerById(req, res) {
     await tryCatchCRUD(res, async () => {
       const id = req.params.id;
+
       const timer = await req.timersCollection.findOne({ _id: ObjectId(id) });
+
       if (!timer) throw new Error("timer not found");
-      res.json(timer);
+
+      const endTimerDate = timer.end || new Date();
+      const progress = Number(endTimerDate - timer.start);
+
+      res.json({ ...timer, progress });
     });
   }
 
   async createTimer(req, res) {
     await tryCatchCRUD(res, async () => {
+      if (!req.user) throw new Error("Not authorized!");
+
       const { insertedId } = await req.timersCollection.insertOne({
         start: new Date(),
         userId: req.user._id,

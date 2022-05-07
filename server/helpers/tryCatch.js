@@ -5,7 +5,7 @@ async function tryCatchCRUD(res, tryCallback, catchCallback, errText) {
     await catchCallback?.();
     const errMessage = errText || err.message;
     console.error(err);
-    res.status(400).send(errMessage);
+    res.status(400).json({ message: errMessage });
   }
 }
 
