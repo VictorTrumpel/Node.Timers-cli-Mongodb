@@ -17,4 +17,11 @@ Node + Mongodb + cli client
 
 Команды:
 
-## signup - регистрация
+## Регистрация
+    cd client node index.js signup
+
+## Авторизация
+    cd client node index.js login
+    
+## Авторизация
+    cd client node index.js login
