@@ -17,4 +17,4 @@ Node + Mongodb + cli client
 
 Команды:
 
-# signup - регистрация
+## signup - регистрация
